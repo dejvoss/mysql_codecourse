@@ -16,10 +16,11 @@ connection = pymysql.connect(host = 'localhost',
 try:
     # Run a query
     with connection.cursor(pymysql.cursors.DictCursor) as cursor:
-        rows = [("Bob", 21, "1990-02-06 23:04:56"),
-                ("Jim", 56, "1955-05-09 13:23:22"),
-                ("Tina", 22, "1998-02-03 12:10:44")]
-        cursor.executemany("INSERT INTO Friends VALUES (%s, %s, %s)", rows)
+        rows = [(23, 'Bob'),
+                (20, 'Tina'),
+                (44, 'Jim')]
+        cursor.executemany("UPDATE Friends SET age = %s WHERE name = %s;",
+                        rows)
         connection.commit()
         for row in cursor:
             print(row)
