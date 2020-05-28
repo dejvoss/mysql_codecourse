@@ -16,14 +16,11 @@ connection = pymysql.connect(host = 'localhost',
 try:
     # Run a query
     with connection.cursor(pymysql.cursors.DictCursor) as cursor:
-        rows = [(23, 'Bob'),
-                (20, 'Tina'),
-                (44, 'Jim')]
-        cursor.executemany("UPDATE Friends SET age = %s WHERE name = %s;",
-                        rows)
+        list_of_names = ['jim', 'bob']
+        # Prepare a string with the same number of placeholders as in list_of_names
+        format_strings = ','.join(['%s']*len(list_of_names))
+        cursor.execute("DELETE FROM Friends WHERE name in ({});".format(format_strings), list_of_names)
         connection.commit()
-        for row in cursor:
-            print(row)
 finally:
     # Close the connection, regardless of whether the above was sucessfull
     connection.close()
