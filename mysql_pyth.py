@@ -16,10 +16,11 @@ connection = pymysql.connect(host = 'localhost',
 try:
     # Run a query
     with connection.cursor(pymysql.cursors.DictCursor) as cursor:
-        cursor.execute("""CREATE TABLE IF NOT EXISTS
-                        Friends(name char(20), age int, DOB datetime);""")
-        # Note that the above will still display a warning (not error) if the
-        # table already exists
+        rows = [("Bob", 21, "1990-02-06 23:04:56"),
+                ("Jim", 56, "1955-05-09 13:23:22"),
+                ("Tina", 22, "1998-02-03 12:10:44")]
+        cursor.executemany("INSERT INTO Friends VALUES (%s, %s, %s)", rows)
+        connection.commit()
         for row in cursor:
             print(row)
 finally:
