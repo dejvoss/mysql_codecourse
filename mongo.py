@@ -5,7 +5,8 @@ import os
 # if path.exists("env.py"):
 #     import env
 # Import mongo url from env file, set database and collection
-MONGODB_URL = os.getenv("MONGO_URL")
+MONGO_URI = 'mongodb+srv://root:r00tUser@myfirstcluster-yipty.mongodb.net/myTestDB?retryWrites=true&w=majority'
+MONGODB_URI = MONGO_URI
 DBS_NAME = "myTestDB"
 COLLECTION_NAME = "myFirstMDB"
 
@@ -17,7 +18,7 @@ def mongo_connect(url):
     except pymongo.errors.ConnectionFailure as e:
         print("Could not connect to MongoDB: %s") % e
 
-conn = mongo_connect(MONGODB_URL)
+conn = mongo_connect(MONGODB_URI)
 
 coll = conn[DBS_NAME][COLLECTION_NAME]
 
