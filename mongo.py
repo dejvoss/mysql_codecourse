@@ -1,12 +1,12 @@
 import pymongo
 import os
-
+if os.path.exists("env.py"):
+  import env 
 # from os import path
 # if path.exists("env.py"):
 #     import env
 # Import mongo url from env file, set database and collection
-MONGO_URI = 'mongodb+srv://root:r00tUser@myfirstcluster-yipty.mongodb.net/myTestDB?retryWrites=true&w=majority'
-MONGODB_URI = MONGO_URI
+MONGODB_URI = os.environ.get('MONGO_URI')
 DBS_NAME = "myTestDB"
 COLLECTION_NAME = "myFirstMDB"
 
@@ -22,7 +22,9 @@ conn = mongo_connect(MONGODB_URI)
 
 coll = conn[DBS_NAME][COLLECTION_NAME]
 
-documents = coll.find()
+coll.update_many({'nationality': 'english'}, {'$set': {'hair_colour': 'gold'}})
+
+documents = coll.find({'nationality': 'english'})
 
 for doc in documents:
     print(doc)
