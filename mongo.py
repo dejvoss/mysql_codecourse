@@ -29,3 +29,8 @@ documents = coll.find({'nationality': 'english'})
 for doc in documents:
     print(doc)
 
+conn = mongo_connect(MONGODB_URI)
+
+coll = conn[DBS_NAME][COLLECTION_NAME]
+
+main_loop()

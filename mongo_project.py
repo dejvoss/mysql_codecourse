@@ -28,6 +28,7 @@ def show_menu():
     option = input("Enter option:")
     return option
 
+
 def main_loop():
         while True:
             option = show_menu()
@@ -44,4 +45,9 @@ def main_loop():
             else:
                 print("Invalid option")
             print("")
-            
+
+conn = mongo_connect(MONGODB_URI)
+
+coll = conn[DBS_NAME][COLLECTION_NAME]
+
+main_loop()
