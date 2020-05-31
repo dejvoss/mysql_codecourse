@@ -22,9 +22,7 @@ conn = mongo_connect(MONGODB_URI)
 
 coll = conn[DBS_NAME][COLLECTION_NAME]
 
-coll.update_many({'nationality': 'english'}, {'$set': {'hair_colour': 'gold'}})
-
-documents = coll.find({'nationality': 'english'})
+documents = coll.find({'first': 'karina'})
 
 for doc in documents:
     print(doc)
